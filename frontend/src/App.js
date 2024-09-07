@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from './components/Header';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -9,7 +10,19 @@ import Statistics from './pages/Statistics';
 
 const App = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => !!state.auth.token); // Assuming token indicates authentication
   const showHeader = !['/', '/register', '/login'].includes(location.pathname);
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      if (isAuthenticated) {
+        navigate('/my-reviews');
+      } else {
+        navigate('/login');
+      }
+    }
+  }, [location.pathname, isAuthenticated, navigate]);
 
   return (
     <>

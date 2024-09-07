@@ -5,8 +5,8 @@ const ReviewDisplay = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useFetchReviewsQuery(page);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error loading reviews.</p>;
+  if (isLoading) return <p className="p-6">Loading...</p>;
+  if (error) return <p className="p-6 text-red-500">Error loading reviews.</p>;
 
   const handlePageChange = (newPage) => {
     if (newPage > 0) setPage(newPage);

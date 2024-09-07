@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await register({ email, username, password }).unwrap();
-      const { data } = await login({ username, password }).unwrap();
+      const data = await login({ username, password }).unwrap();
       dispatch(setUser({ user: username, token: data.access }));
       navigate('/submit-review');
     } catch (error) {
